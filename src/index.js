@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce';
-
+import API from './api-service';
 import './sass/main.scss';
 import countryCardTpl from './templates/country-card.hbs';
 import someCountryTpl from './templates/some-country-list.hbs';
@@ -13,7 +13,7 @@ searchEl.addEventListener('input', debounce(onSearch, 500));
 function onSearch(evt) {
     const countryName = evt.target.value;
     if (countryName) {
-        fetchCountry(countryName)
+        API.fetchCountry(countryName)
         .then(renderCountry)
         .catch(err => console.log(err));        
     }
@@ -39,9 +39,3 @@ function renderCountry(country) {
     
 }
 
-function fetchCountry(countryName) {
-    return fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-        .then(response => {
-            return response.json();
-        });
-}

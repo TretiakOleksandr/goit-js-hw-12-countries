@@ -15,7 +15,7 @@ function onSearch(evt) {
     if (countryName) {
         API.fetchCountry(countryName)
         .then(renderCountry)
-        .catch(err => console.log(err));        
+        .catch(err => onError(err));        
     }
 }
 
@@ -34,8 +34,12 @@ function renderCountry(country) {
     }
 
     if (country.length > 10) {
-        containerEl.innerHTML = '<h2>Too many matches found.</h2>'
+        containerEl.innerHTML = '<h2>Too many matches found</h2>';
     }
     
 }
 
+function onError(err) {
+    console.log('Something wrong')
+    containerEl.innerHTML = `<h2>Somesing wrong. Error ${err} </h2>`;
+}
